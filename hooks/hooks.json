@@ -1,0 +1,57 @@
+{
+  "hooks": [
+    {
+      "event": "on_file_save",
+      "match": "src/**/*.py",
+      "agent": "azure-python-code-reviewer",
+      "description": "Run code review on any saved Python source file",
+      "options": {
+        "severity_threshold": "MAJOR",
+        "auto_fix": false
+      }
+    },
+    {
+      "event": "on_pr_open",
+      "agent": "azure-python-code-reviewer",
+      "description": "Run full code review when a pull request is opened",
+      "options": {
+        "severity_threshold": "MINOR",
+        "report_path": "docs/reports/pr-review.md"
+      }
+    },
+    {
+      "event": "on_pr_open",
+      "agent": "azure-security-auditor",
+      "description": "Run security audit when a pull request is opened",
+      "options": {
+        "report_path": "docs/reports/pr-security.md"
+      }
+    },
+    {
+      "event": "on_branch_create",
+      "match": "feature/**",
+      "agent": "azure-project-planner",
+      "description": "Prompt planning when a feature branch is created",
+      "options": {
+        "output_dir": "docs/plans"
+      }
+    },
+    {
+      "event": "pre_commit",
+      "match": "src/**/*.py",
+      "agent": "azure-security-auditor",
+      "description": "Block commit if security auditor finds REJECTED status",
+      "options": {
+        "block_on": "REJECTED"
+      }
+    },
+    {
+      "event": "on_test_fail",
+      "agent": "azure-code-implementer",
+      "description": "Invoke implementer when tests fail to attempt a fix",
+      "options": {
+        "max_retries": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "azure-stack",
+  "description": "Azure services and tools including AI, storage, compute, messaging, monitoring, identity, and developer tools for building cloud-native applications on Azure.",
+  "owner": {
+    "name": "MoonAxis"
+  },
+  "plugins": [
+    {
+      "name": "azure-stack",
+      "description": "Azure services and tools including AI, storage, compute, messaging, monitoring, identity, and developer tools for building cloud-native applications on Azure.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Kien Nguyen"
+      },
+      "source": ".",
+      "category": "development",
+      "keywords": [
+        "azure",
+        "cloud",
+        "ai",
+        "storage",
+        "messaging",
+        "monitoring",
+        "identity"
+      ]
+    }
+  ]
+}
