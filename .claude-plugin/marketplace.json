@@ -13,7 +13,7 @@
       "author": {
         "name": "Kien Nguyen"
       },
-      "source": ".",
+      "source": "./",
       "category": "development",
       "keywords": [
         "azure",
