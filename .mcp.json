@@ -1,0 +1,46 @@
+{
+  "mcpServers": {
+    "azure-resource-lookup": {
+      "description": "Resolve Azure resource IDs, connection strings, and RBAC assignments from the current subscription",
+      "command": "npx",
+      "args": ["-y", "@azure/mcp-server-resource-lookup"],
+      "env": {
+        "AZURE_SUBSCRIPTION_ID": "${env:AZURE_SUBSCRIPTION_ID}",
+        "AZURE_TENANT_ID": "${env:AZURE_TENANT_ID}"
+      }
+    },
+    "azure-keyvault": {
+      "description": "Read secrets from Azure Key Vault for local development (never commit secrets)",
+      "command": "npx",
+      "args": ["-y", "@azure/mcp-server-keyvault"],
+      "env": {
+        "AZURE_KEYVAULT_URL": "${env:AZURE_KEYVAULT_URL}",
+        "AZURE_TENANT_ID": "${env:AZURE_TENANT_ID}"
+      }
+    },
+    "azure-ai-foundry": {
+      "description": "Query Azure AI Foundry projects, datasets, connections, and model deployments",
+      "command": "npx",
+      "args": ["-y", "@azure/mcp-server-ai-foundry"],
+      "env": {
+        "AZURE_AI_PROJECT_CONNECTION_STRING": "${env:AZURE_AI_PROJECT_CONNECTION_STRING}"
+      }
+    },
+    "azure-cosmos-db": {
+      "description": "Read and query Cosmos DB containers for context during development",
+      "command": "npx",
+      "args": ["-y", "@azure/mcp-server-cosmos-db"],
+      "env": {
+        "AZURE_COSMOS_ENDPOINT": "${env:AZURE_COSMOS_ENDPOINT}"
+      }
+    },
+    "azure-monitor": {
+      "description": "Query Application Insights logs and metrics via KQL for debugging and observability",
+      "command": "npx",
+      "args": ["-y", "@azure/mcp-server-monitor"],
+      "env": {
+        "AZURE_MONITOR_WORKSPACE_ID": "${env:AZURE_MONITOR_WORKSPACE_ID}"
+      }
+    }
+  }
+}

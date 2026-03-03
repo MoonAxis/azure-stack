@@ -1,0 +1,44 @@
+{
+  "azure": {
+    "defaultRegion": "eastus",
+    "defaultEnvironment": "dev",
+    "namingConvention": "{project}-{service}-{env}",
+    "identity": {
+      "preferManagedIdentity": true,
+      "preferSystemAssigned": true
+    }
+  },
+  "workflow": {
+    "defaultType": "feature",
+    "parallelReview": true,
+    "haltOnBlocker": true,
+    "requirePlanBeforeArchitect": true
+  },
+  "docs": {
+    "plansDir": "docs/plans",
+    "architectsDir": "docs/architects",
+    "reportsDir": "docs/reports",
+    "handoffsDir": "docs/handoffs"
+  },
+  "security": {
+    "requireSecurityReviewOnPR": true,
+    "blockMergeOnRejected": true,
+    "euAiActAuditRequired": true,
+    "requireKeyVaultForSecrets": true
+  },
+  "codeReview": {
+    "severityThreshold": "MAJOR",
+    "blockMergeOnBlocker": true
+  },
+  "testing": {
+    "requireRedPhaseBeforeImplement": true,
+    "minCoverage": 80
+  },
+  "telemetry": {
+    "opentelemetryEnabled": true,
+    "samplingRate": {
+      "production": 0.1,
+      "staging": 1.0
+    }
+  }
+}

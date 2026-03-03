@@ -1,0 +1,60 @@
+{
+  "languageServers": {
+    "python": {
+      "description": "Pyright for full Python type checking and Azure SDK symbol resolution",
+      "command": "pyright-langserver",
+      "args": ["--stdio"],
+      "languages": ["python"],
+      "settings": {
+        "python": {
+          "analysis": {
+            "typeCheckingMode": "strict",
+            "autoImportCompletions": true,
+            "stubPath": "./typestubs",
+            "extraPaths": ["./src"],
+            "diagnosticMode": "workspace"
+          }
+        }
+      }
+    },
+    "python-ruff": {
+      "description": "Ruff LSP for fast Python linting with Azure SDK rules",
+      "command": "ruff-lsp",
+      "args": [],
+      "languages": ["python"],
+      "settings": {
+        "ruff": {
+          "lint": {
+            "select": ["E", "F", "I", "UP", "S", "ANN"],
+            "ignore": ["ANN101", "ANN102"]
+          },
+          "format": {
+            "preview": true
+          }
+        }
+      }
+    },
+    "yaml": {
+      "description": "YAML LSP for Azure Bicep, ARM templates, and pipeline definitions",
+      "command": "yaml-language-server",
+      "args": ["--stdio"],
+      "languages": ["yaml", "yml"],
+      "settings": {
+        "yaml": {
+          "schemas": {
+            "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json": "*.arm.json",
+            "https://raw.githubusercontent.com/Azure/azure-pipelines-vscode/main/service-schema.json": "azure-pipelines.yml"
+          },
+          "validate": true,
+          "completion": true
+        }
+      }
+    },
+    "bicep": {
+      "description": "Bicep LSP for Azure infrastructure-as-code authoring",
+      "command": "bicep-langserver",
+      "args": ["--stdio"],
+      "languages": ["bicep"]
+    }
+  }
+}
