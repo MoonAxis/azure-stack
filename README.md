@@ -8,7 +8,7 @@ A Claude Code plugin for building cloud-native applications on Azure. Provides 5
 
 ## Install
 
-```
+```bash
 /plugin marketplace add https://github.com/MoonAxis/azure-stack.git
 /plugin install azure-stack
 ```
@@ -19,14 +19,14 @@ A Claude Code plugin for building cloud-native applications on Azure. Provides 5
 
 ### Orchestration Command
 
-```
+```bash
 /azure-stack:azure-orchestrate <workflow-type> "<description>"
 ```
 
 Chains agents into a full end-to-end pipeline. Five workflow types:
 
 | Workflow | Pipeline |
-|---|---|
+| --- | --- |
 | `feature` | Planner → Architect → TDD → Implement → [CodeReview ∥ SecurityReview] |
 | `bugfix` | TDD → Implement → CodeReview |
 | `refactor` | Architect → TDD → Implement → CodeReview |
@@ -34,7 +34,8 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | `infra` | Planner → Architect → SecurityReview |
 
 **Examples:**
-```
+
+```bash
 /azure-stack:azure-orchestrate feature "Add AI document evaluation pipeline using Azure AI Services and Cosmos DB"
 /azure-stack:azure-orchestrate bugfix "Fix race condition in Service Bus message processing"
 /azure-stack:azure-orchestrate security "Audit PII handling across all API endpoints"
@@ -48,7 +49,7 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 ### Agents
 
 | Agent | Role |
-|---|---|
+| --- | --- |
 | `azure-project-planner` | Creates feature plans and task breakdowns |
 | `azure-solution-architect` | Designs Azure architecture and ADRs |
 | `azure-tdd-suite` | Writes failing tests (RED phase) before implementation |
@@ -61,8 +62,9 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 ### Skills (58)
 
 #### AI & Machine Learning
+
 | Skill | Description |
-|---|---|
+| --- | --- |
 | `azure-ai` | Azure AI Services general patterns |
 | `azure-ai-contentsafety-py` | Content Safety API |
 | `azure-ai-contentunderstanding-py` | Content Understanding API |
@@ -81,8 +83,9 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | `hosted-agents-v2-py` | Hosted agents on Azure |
 
 #### Storage
+
 | Skill | Description |
-|---|---|
+| --- | --- |
 | `azure-storage` | Storage account patterns |
 | `azure-storage-blob-py` | Blob Storage SDK |
 | `azure-storage-file-datalake-py` | Data Lake Storage Gen2 |
@@ -90,16 +93,18 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | `azure-storage-queue-py` | Queue Storage |
 
 #### Messaging & Events
+
 | Skill | Description |
-|---|---|
+| --- | --- |
 | `azure-eventgrid-py` | Event Grid SDK |
 | `azure-eventhub-py` | Event Hubs SDK |
 | `azure-servicebus-py` | Service Bus SDK |
 | `azure-messaging-webpubsubservice-py` | Web PubSub real-time messaging |
 
 #### Databases
+
 | Skill | Description |
-|---|---|
+| --- | --- |
 | `azure-cosmos-db-py` | Cosmos DB SDK (modern) |
 | `azure-cosmos-py` | Cosmos DB SDK (classic) |
 | `azure-data-tables-py` | Azure Table Storage |
@@ -108,8 +113,9 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | `azure-search-documents-py` | Azure AI Search |
 
 #### Monitoring & Observability
+
 | Skill | Description |
-|---|---|
+| --- | --- |
 | `appinsights-instrumentation` | Application Insights setup |
 | `azure-monitor-ingestion-py` | Log ingestion SDK |
 | `azure-monitor-opentelemetry-py` | OpenTelemetry distro for Azure |
@@ -119,16 +125,18 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | `azure-diagnostics` | Diagnostics and debugging |
 
 #### Identity & Security
+
 | Skill | Description |
-|---|---|
+| --- | --- |
 | `azure-identity-py` | DefaultAzureCredential and identity SDK |
 | `entra-app-registration` | Entra ID app registration |
 | `azure-rbac` | Role-based access control |
 | `azure-compliance` | Compliance frameworks |
 
 #### Infrastructure & Deployment
+
 | Skill | Description |
-|---|---|
+| --- | --- |
 | `azure-deploy` | Deployment patterns (Bicep, ARM) |
 | `azure-prepare` | Pre-deployment environment setup |
 | `azure-validate` | Post-deployment validation |
@@ -139,16 +147,18 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | `azure-resource-visualizer` | Visualize Azure resource topology |
 
 #### Azure Management
+
 | Skill | Description |
-|---|---|
+| --- | --- |
 | `azure-mgmt-apicenter-py` | API Center management |
 | `azure-mgmt-apimanagement-py` | API Management |
 | `azure-mgmt-botservice-py` | Bot Service management |
 | `azure-mgmt-fabric-py` | Microsoft Fabric management |
 
 #### Python Utilities
+
 | Skill | Description |
-|---|---|
+| --- | --- |
 | `pydantic-models-py` | Pydantic v2 model patterns |
 | `fastapi-router-py` | FastAPI router patterns |
 | `frontend-design-review` | Frontend design review for Azure apps |
@@ -160,7 +170,7 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 Five Azure MCP servers are configured automatically on install:
 
 | Server | Purpose | Required Env Var |
-|---|---|---|
+| --- | --- | --- |
 | `azure-resource-lookup` | Resolve resource IDs, connection strings, RBAC | `AZURE_SUBSCRIPTION_ID`, `AZURE_TENANT_ID` |
 | `azure-keyvault` | Read secrets from Key Vault during development | `AZURE_KEYVAULT_URL`, `AZURE_TENANT_ID` |
 | `azure-ai-foundry` | Query AI Foundry projects and model deployments | `AZURE_AI_PROJECT_CONNECTION_STRING` |
@@ -172,7 +182,7 @@ Five Azure MCP servers are configured automatically on install:
 ### LSP Servers
 
 | Server | Languages | Tool |
-|---|---|---|
+| --- | --- | --- |
 | Pyright | Python | Strict type checking with Azure SDK symbol resolution |
 | Ruff | Python | Fast linting (PEP 8, imports, security, annotations) |
 | YAML | YAML / ARM templates / Azure Pipelines | Schema validation |
@@ -195,7 +205,7 @@ Rules are automatically injected into every conversation:
 Automated actions triggered by development events:
 
 | Event | Trigger | Action |
-|---|---|---|
+| --- | --- | --- |
 | `on_file_save` | `src/**/*.py` | Run code review (MAJOR threshold) |
 | `on_pr_open` | Any PR | Run full code review (MINOR threshold) |
 | `on_pr_open` | Any PR | Run security audit |
@@ -246,4 +256,24 @@ Default settings in `settings.json` — override per project:
 
 ## License
 
-MIT — MoonAxis
+MIT License
+
+Copyright (c) 2025 MoonAxis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
