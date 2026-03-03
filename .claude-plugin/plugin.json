@@ -13,17 +13,5 @@
     "messaging",
     "monitoring",
     "identity"
-  ],
-  "settings": "./settings.json",
-  "hooks": "./hooks/hooks.json",
-  "mcp": "./.mcp.json",
-  "lsp": "./.lsp.json",
-  "rules": [
-    "./rules/azure-coding-standards.md",
-    "./rules/azure-security-rules.md",
-    "./rules/azure-agent-pipeline-rules.md"
-  ],
-  "commands": [
-    "./commands/azure-orchestrate.md"
   ]
 }
