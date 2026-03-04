@@ -1,8 +1,8 @@
 # azure-stack
 
-A Claude Code plugin for building cloud-native applications on Azure. Provides 58 skills, 6 specialized agents, an orchestration command, 5 MCP servers, 4 LSP servers, automated hooks, and built-in rules for Azure Python development.
+A Claude Code plugin for building cloud-native applications on Azure. Covers both **Python** and **Terraform** workflows with 69 skills, 12 specialized agents, 2 orchestration commands, smart file-type routing hooks, governance audit, and session tooling.
 
-**Author:** Kien Nguyen | **Owner:** MoonAxis
+**Author:** Kien Nguyen | **Owner:** MoonAxis | **Version:** 1.1.0
 
 ---
 
@@ -17,13 +17,15 @@ A Claude Code plugin for building cloud-native applications on Azure. Provides 5
 
 ## What's Included
 
-### Orchestration Command
+### Orchestration Commands
+
+Two commands — one per stack:
+
+#### Python pipeline
 
 ```bash
-/azure-stack:azure-orchestrate <workflow-type> "<description>"
+/azure-stack:python-orchestrate <workflow-type> "<description>"
 ```
-
-Chains agents into a full end-to-end pipeline. Five workflow types:
 
 | Workflow | Pipeline |
 | --- | --- |
@@ -33,33 +35,43 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | `security` | Planner → [CodeReview ∥ SecurityReview] |
 | `infra` | Planner → Architect → SecurityReview |
 
-**Examples:**
+#### Terraform pipeline
 
 ```bash
-/azure-stack:azure-orchestrate feature "Add AI document evaluation pipeline using Azure AI Services and Cosmos DB"
-/azure-stack:azure-orchestrate bugfix "Fix race condition in Service Bus message processing"
-/azure-stack:azure-orchestrate security "Audit PII handling across all API endpoints"
-/azure-stack:azure-orchestrate infra "Provision Container Apps and Key Vault for staging environment"
+/azure-stack:terraform-orchestrate <workflow-type> "<description>"
 ```
 
-**Options:** `--plan <path>`, `--from <agent>`, `--parallel-review`, `--dry-run`
+**Options (both commands):** `--plan <path>`, `--from <agent>`, `--parallel-review`, `--dry-run`
 
 ---
 
-### Agents
+### Agents (12)
+
+#### azure-python-* (6)
 
 | Agent | Role |
 | --- | --- |
-| `azure-project-planner` | Creates feature plans and task breakdowns |
-| `azure-solution-architect` | Designs Azure architecture and ADRs |
-| `azure-tdd-suite` | Writes failing tests (RED phase) before implementation |
-| `azure-code-implementer` | Implements code to pass the TDD tests (GREEN phase) |
+| `azure-python-project-planner` | Creates feature plans and task breakdowns |
+| `azure-python-solution-architect` | Designs Azure architecture and ADRs |
+| `azure-python-tdd-suite` | Writes failing tests (RED phase) before implementation |
+| `azure-python-code-implementer` | Implements code to pass the TDD tests (GREEN phase) |
 | `azure-python-code-reviewer` | Reviews Python code for quality, severity-rated findings |
-| `azure-security-auditor` | Audits for PII, auth issues, EU AI Act compliance |
+| `azure-python-security-auditor` | Audits for PII, auth issues, EU AI Act compliance |
+
+#### azure-terraform-* (6)
+
+| Agent | Role |
+| --- | --- |
+| `azure-terraform-planner` | Plans Terraform feature work and IaC task breakdown |
+| `azure-terraform-architect` | Designs Terraform module structure and ADRs |
+| `azure-terraform-generator` | Generates Terraform code using Azure Verified Modules |
+| `azure-terraform-risk-analyzer` | Reviews Terraform plans for drift and risk |
+| `azure-terraform-auditor` | Security audit for Terraform configurations |
+| `azure-terraform-deployment-guide` | Guides safe Terraform deployment execution |
 
 ---
 
-### Skills (58)
+### Skills (69)
 
 #### AI & Machine Learning
 
@@ -81,6 +93,9 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | `agent-framework-azure-ai-py` | Azure AI Agent framework |
 | `agents-v2-py` | Agents SDK v2 patterns |
 | `hosted-agents-v2-py` | Hosted agents on Azure |
+| `ai-prompt-engineering-safety-review` | Analyze prompts for safety, bias, and security vulnerabilities |
+| `agentic-eval` | Self-critique, evaluator-optimizer, and LLM-as-judge evaluation patterns |
+| `agent-governance` | Governance, safety, and trust controls for AI agent systems |
 
 #### Storage
 
@@ -123,6 +138,7 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | `azure-monitor-query-py` | Log Analytics query SDK |
 | `azure-observability` | Observability patterns |
 | `azure-diagnostics` | Diagnostics and debugging |
+| `azure-resource-health-diagnose` | Analyze resource health, diagnose issues, and create remediation plans |
 
 #### Identity & Security
 
@@ -130,21 +146,32 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | --- | --- |
 | `azure-identity-py` | DefaultAzureCredential and identity SDK |
 | `entra-app-registration` | Entra ID app registration |
-| `azure-rbac` | Role-based access control |
+| `azure-rbac` | Role-based access control patterns |
+| `azure-role-selector` | Least-privilege role guidance with Bicep and CLI output |
 | `azure-compliance` | Compliance frameworks |
 
 #### Infrastructure & Deployment
 
 | Skill | Description |
 | --- | --- |
-| `azure-deploy` | Deployment patterns (Bicep, ARM) |
+| `azure-deploy` | Deployment patterns |
 | `azure-prepare` | Pre-deployment environment setup |
 | `azure-validate` | Post-deployment validation |
+| `azure-deployment-preflight` | Preflight validation (what-if, syntax, permissions) before any deployment |
 | `azure-containerregistry-py` | Azure Container Registry |
 | `azure-appconfiguration-py` | App Configuration service |
 | `azure-keyvault-py` | Key Vault SDK |
 | `azure-resource-lookup` | Resource ID and connection resolution |
 | `azure-resource-visualizer` | Visualize Azure resource topology |
+| `az-cost-optimize` | Analyze IaC and resources for cost savings, creates GitHub issues |
+| `azure-devops-cli` | Azure DevOps CLI — pipelines, repos, work items, PRs |
+
+#### Terraform
+
+| Skill | Description |
+| --- | --- |
+| `import-infrastructure-as-code` | Reverse-engineer live Azure resources into Terraform using Azure Verified Modules |
+| `terraform-azurerm-set-diff-analyzer` | Distinguish false-positive diffs from real changes in Terraform plans |
 
 #### Azure Management
 
@@ -163,11 +190,17 @@ Chains agents into a full end-to-end pipeline. Five workflow types:
 | `fastapi-router-py` | FastAPI router patterns |
 | `frontend-design-review` | Frontend design review for Azure apps |
 
+#### Documentation
+
+| Skill | Description |
+| --- | --- |
+| `microsoft-docs` | Query Microsoft Learn, Azure, .NET, Aspire, VS Code, and GitHub docs |
+
 ---
 
 ### MCP Servers
 
-Five Azure MCP servers are configured automatically on install:
+Five Azure MCP servers configured automatically on install:
 
 | Server | Purpose | Required Env Var |
 | --- | --- | --- |
@@ -192,32 +225,61 @@ Five Azure MCP servers are configured automatically on install:
 
 ### Rules
 
-Rules are automatically injected into every conversation:
+#### Azure Python
 
-- **azure-coding-standards** — `DefaultAzureCredential` enforcement, Key Vault for secrets, naming conventions, async patterns
-- **azure-security-rules** — No hardcoded secrets, PII handling, EU AI Act compliance checks
-- **azure-agent-pipeline-rules** — Agent handoff formats, blocker escalation, artefact persistence
+- **azure-python-coding-standards** — `DefaultAzureCredential`, Pydantic v2, async SDK, error handling, naming
+- **azure-python-security-rules** — PII handling, Key Vault, EU AI Act, FastAPI auth, audit logging
+- **azure-python-agent-pipeline-rules** — Pipeline order, handoff requirements, blocking rules, quality gates
+
+#### Azure Terraform
+
+- **azure-terraform-coding-standards** — Module structure, AVM patterns, variable conventions
+- **azure-terraform-security-rules** — Secrets, RBAC, network security, audit requirements
+- **azure-terraform-pipeline-rules** — Plan → apply order, risk analysis gates, deployment safety
 
 ---
 
 ### Hooks
 
-Automated actions triggered by development events:
+#### File-type routing — hooks activate based on what you're editing
 
-| Event | Trigger | Action |
+| Event | Match | Agent |
 | --- | --- | --- |
-| `on_file_save` | `src/**/*.py` | Run code review (MAJOR threshold) |
-| `on_pr_open` | Any PR | Run full code review (MINOR threshold) |
-| `on_pr_open` | Any PR | Run security audit |
-| `on_branch_create` | `feature/**` branches | Prompt planning via planner agent |
-| `pre_commit` | `src/**/*.py` | Block commit if security audit returns REJECTED |
-| `on_test_fail` | Any test failure | Invoke implementer to attempt fix (max 2 retries) |
+| `on_file_save` | `src/**/*.py` | `azure-python-code-reviewer` |
+| `on_file_save` | `**/*.tf` | `azure-terraform-risk-analyzer` |
+| `on_pr_open` | `**/*.py` | `azure-python-code-reviewer` + `azure-python-security-auditor` |
+| `on_pr_open` | `**/*.tf` | `azure-terraform-risk-analyzer` + `azure-terraform-auditor` |
+| `on_branch_create` | `feature/**` | `azure-python-project-planner` |
+| `on_branch_create` | `infra/**` | `azure-terraform-planner` |
+| `pre_commit` | `src/**/*.py` | `azure-python-security-auditor` (blocks on REJECTED) |
+| `pre_commit` | `**/*.tf` | `azure-terraform-auditor` (blocks on REJECTED) |
+| `on_test_fail` | — | `azure-python-code-implementer` |
+
+#### Session hooks — opt-in, copy to your project
+
+| Hook | Events | Purpose |
+| --- | --- | --- |
+| `session-logger` | start, end, prompt | JSON audit log of all session activity |
+| `governance-audit` | start, end, prompt | Real-time threat detection on every prompt |
+| `session-auto-commit` | end | Auto-commit and push all changes at session end |
+
+**To use a session hook in your project:**
+
+```bash
+cp -r hooks/<hook-name> .github/hooks/
+chmod +x .github/hooks/<hook-name>/*.sh
+```
+
+**governance-audit config:**
+
+| Variable | Values | Default |
+| --- | --- | --- |
+| `GOVERNANCE_LEVEL` | `open`, `standard`, `strict`, `locked` | `standard` |
+| `BLOCK_ON_THREAT` | `true`, `false` | `false` |
 
 ---
 
 ## Configuration
-
-Default settings in `settings.json` — override per project:
 
 ```json
 {
@@ -250,7 +312,9 @@ Default settings in `settings.json` — override per project:
 - Node.js (for MCP servers via `npx`)
 - Python with `pyright-langserver` and `ruff-lsp` (for LSP)
 - `bicep-langserver` and `yaml-language-server` (for infrastructure files)
+- Terraform CLI (for Terraform agents and skills)
 - Azure CLI authenticated (`az login`) or environment variables set for MCP servers
+- `jq` and `bc` (for governance-audit hook)
 
 ---
 

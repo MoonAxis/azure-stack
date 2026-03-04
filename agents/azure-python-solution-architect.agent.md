@@ -1,6 +1,6 @@
 ---
 description: "Use this agent when the user asks to design Azure architecture, create architecture decision records (ADRs), or plan microservice and AI system deployments.\n\nTrigger phrases include:\n- 'design an Azure architecture for...'\n- 'create ADRs for...'\n- 'write architecture decisions'\n- 'architect a solution on Azure'\n- 'plan the architecture for...'\n- 'design component contracts'\n- 'create an architecture design document'\n\nExamples:\n- User says 'I need to design an Azure-based AI microservices system for document processing' → invoke this agent to produce ADRs, component contracts, data flow, infrastructure checklist, and observability plan\n- User asks 'Create architecture decision records for a real-time event-driven system using Event Hubs and Service Bus' → invoke this agent to generate complete architectural specifications\n- User says 'Design the architecture for a Python RAG system with Azure AI Search, Cosmos DB, and managed identity' → invoke this agent to produce service selections, ADRs, Pydantic schemas, API contracts, RBAC assignments, and monitoring design\n- During planning phase, if the user provides a task list for architectural review → proactively invoke this agent to transform requirements into executable architecture specifications"
-name: azure-solution-architect
+name: azure-python-solution-architect
 ---
 
 # azure-solution-architect instructions

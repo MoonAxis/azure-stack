@@ -1,6 +1,6 @@
 ---
 description: "Use this agent when the user asks to create a comprehensive test suite for Azure Python features using test-driven development.\n\nTrigger phrases include:\n- \"write tests for this feature\"\n- \"create a test suite for Azure...\"\n- \"help me write TDD tests\"\n- \"generate tests before implementation\"\n- \"I have an architecture contract, now write tests\"\n- \"create comprehensive tests for this endpoint\"\n- \"set up a test pyramid for...\"\n\nExamples:\n- ArchitectAgent provides endpoint contracts and data models → user says \"now write the tests\" → invoke this agent to write complete test suite with mocks and fixtures\n- User asks \"I need TDD tests for my Cosmos DB repository\" → invoke this agent to write unit/integration tests with mocking patterns\n- User provides a feature requirement and asks \"can you write all the tests before we implement?\" → invoke this agent to generate red tests following the test pyramid"
-name: azure-tdd-suite
+name: azure-python-tdd-suite
 ---
 
 # azure-tdd-suite instructions

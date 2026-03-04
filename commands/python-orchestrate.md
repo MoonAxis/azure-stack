@@ -1,9 +1,9 @@
 ---
-name: azure-orchestrate
-description: "Sequential and parallel agent workflow orchestration for complex Azure Python tasks. Chains PlannerAgent → ArchitectAgent → TDDGuideAgent → ImplementAgent → CodeReviewAgent + SecurityReviewAgent into a single end-to-end pipeline.\n\nUsage: /azure-stack:azure-orchestrate <workflow-type> \"<description>\"\n\nWorkflow types: feature, bugfix, refactor, security, infra"
+name: python-orchestrate
+description: "Sequential and parallel agent workflow orchestration for complex Azure Python tasks. Chains PlannerAgent → ArchitectAgent → TDDGuideAgent → ImplementAgent → CodeReviewAgent + SecurityReviewAgent into a single end-to-end pipeline.\n\nUsage: /azure-stack:python-orchestrate <workflow-type> \"<description>\"\n\nWorkflow types: feature, bugfix, refactor, security, infra"
 ---
 
-# azure-orchestrate
+# python-orchestrate
 
 You are an orchestrator. Your job is to invoke the azure-stack agents in sequence (and in parallel where possible), passing structured handoff documents between them, and producing a final aggregated report.
 
@@ -14,16 +14,16 @@ You are an orchestrator. Your job is to invoke the azure-stack agents in sequenc
 ## Usage
 
 ```
-/azure-stack:azure-orchestrate <workflow-type> "<description>" [options]
+/azure-stack:python-orchestrate <workflow-type> "<description>" [options]
 ```
 
 **Examples:**
 ```
-/azure-stack:azure-orchestrate feature "Add AI document evaluation pipeline using Azure AI Services and Cosmos DB"
-/azure-stack:azure-orchestrate bugfix "Fix race condition in Service Bus message processing"
-/azure-stack:azure-orchestrate refactor "Extract authentication logic into shared middleware"
-/azure-stack:azure-orchestrate security "Audit PII handling across all API endpoints"
-/azure-stack:azure-orchestrate infra "Provision Container Apps and Key Vault for staging environment"
+/azure-stack:python-orchestrate feature "Add AI document evaluation pipeline using Azure AI Services and Cosmos DB"
+/azure-stack:python-orchestrate bugfix "Fix race condition in Service Bus message processing"
+/azure-stack:python-orchestrate refactor "Extract authentication logic into shared middleware"
+/azure-stack:python-orchestrate security "Audit PII handling across all API endpoints"
+/azure-stack:python-orchestrate infra "Provision Container Apps and Key Vault for staging environment"
 ```
 
 ---
@@ -96,22 +96,22 @@ If any agent raises a **BLOCKER**, halt the workflow immediately, report the blo
 ### Sequential Phase (feature workflow example)
 
 ```
-[1/6] 🗂  azure-project-planner
+[1/6] 🗂  azure-python-project-planner
       Reads:  feature description (user input)
       Writes: docs/plans/<feature>.md
       Handoff → docs/handoffs/<feature>-planner-to-architect.md
 
-[2/6] 🏛  azure-solution-architect
+[2/6] 🏛  azure-python-solution-architect
       Reads:  docs/plans/<feature>.md + handoff
       Writes: docs/architects/<feature>.md
       Handoff → docs/handoffs/<feature>-architect-to-tdd.md
 
-[3/6] 🧪  azure-tdd-suite
+[3/6] 🧪  azure-python-tdd-suite
       Reads:  docs/architects/<feature>.md + handoff
       Writes: tests/test_<feature>.py  (RED — all failing)
       Handoff → docs/handoffs/<feature>-tdd-to-implement.md
 
-[4/6] 🔨  azure-code-implementer
+[4/6] 🔨  azure-python-code-implementer
       Reads:  tests/test_<feature>.py + handoff
       Writes: src/<feature>/  (GREEN — all passing)
       Handoff → docs/handoffs/<feature>-implement-to-review.md
@@ -125,7 +125,7 @@ If any agent raises a **BLOCKER**, halt the workflow immediately, report the blo
       │        Reads:  src/<feature>/ + handoff
       │        Output: BLOCKER / MAJOR / MINOR / SUGGESTION findings
       │
-      └── 🔒  azure-security-auditor
+      └── 🔒  azure-python-security-auditor
                Reads:  src/<feature>/ + handoff
                Output: EU AI Act + PII + Auth sign-off
 
@@ -178,12 +178,12 @@ Write the aggregated report to `docs/reports/<feature>-review.md`:
 ## Artefacts Produced
 | Stage | Agent | Output |
 |---|---|---|
-| Plan | azure-project-planner | docs/plans/<feature>.md |
-| Architecture | azure-solution-architect | docs/architects/<feature>.md |
-| Tests | azure-tdd-suite | tests/test_<feature>.py |
-| Implementation | azure-code-implementer | src/<feature>/ |
+| Plan | azure-python-project-planner | docs/plans/<feature>.md |
+| Architecture | azure-python-solution-architect | docs/architects/<feature>.md |
+| Tests | azure-python-tdd-suite | tests/test_<feature>.py |
+| Implementation | azure-python-code-implementer | src/<feature>/ |
 | Code Review | azure-python-code-reviewer | (findings below) |
-| Security Review | azure-security-auditor | (findings below) |
+| Security Review | azure-python-security-auditor | (findings below) |
 
 ## Code Review Findings
 

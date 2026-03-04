@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "skills": {
+    "azure-aigateway": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "916663317b83fe66b038b514da5dcfaad3b899ec4ef14aec525680ca98faa231"
+    },
+    "azure-compliance": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "8ca69c452992939d1c857aa8feb7cc0bdfefcb28e972cdebc76a0794517e5e99"
+    },
+    "azure-containerregistry-py": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "bb3f141196c60299ad12bbaa5c388711149394763b600f6c44710d6599844bf5"
+    },
+    "azure-data-tables-py": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "64956b216a05fa2dfcda24be3c4565928e5b0e273091d4899576014cdb87c71d"
+    },
+    "azure-deploy": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "1cf913a09e513aff1f0e0a20020f2a9325f3bad7f8cc33fab47e83a87cb27ad9"
+    },
+    "azure-observability": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "b68b2251808f4c0cabb940cca8d57ec79c29a7887eaad875d052335bf99893ff"
+    },
+    "azure-postgres": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "2491938cf895fb51bdba177701c69ea9662cdc552666e7f197a80d4fcbceb94b"
+    },
+    "azure-prepare": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "d503f757899ba36298526b4260881f6e4851123975fdadba18f3e378e4479a90"
+    },
+    "azure-rbac": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "321bed14917d42fb10b49617acd19ac95751f1549fda2a1bff9d099b93df3561"
+    },
+    "azure-resource-lookup": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "ca8acbe539941cb5ffed6b17d3feb2f0e48c9b5a6a69f1e98477eccf664d025f"
+    },
+    "cloud-solution-architect": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "a2ad72ed97eb04000edddb60bc2feae33f4fe4e14727663e32ebb616c2edfe21"
+    },
+    "continual-learning": {
+      "source": "microsoft/skills",
+      "sourceType": "github",
+      "computedHash": "1f7c1a79d6ee166aac48591acbc9165778d2384fa9e84405099750b6e065c0c7"
+    }
+  }
+}

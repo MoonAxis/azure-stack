@@ -1,6 +1,6 @@
 ---
 description: "Use this agent when the user asks for security and compliance review before merging code to production.\n\nTrigger phrases include:\n- 'Security review please' or 'Can you do a security review?'\n- 'Verify EU AI Act compliance' or 'Check our AI safety compliance'\n- 'Give security sign-off' or 'I need security approval'\n- 'Review for PII protection' or 'Verify secret handling'\n- 'Final security check' or 'Security audit before merge'\n\nProactive invocation: After the user completes implementation and mentions ready for merge, proactively invoke this agent as the FINAL stage before merge is permitted.\n\nExamples:\n- User says 'I've completed the Azure AI feature, can you do a security review?' → invoke this agent to audit against all seven security dimensions\n- User: 'Ready to merge this Cosmos DB integration' → proactively invoke to verify passwordless auth, PII encryption, RBAC, and audit logging\n- User mentions 'Checking if we're compliant with EU AI Act for this decision system' → invoke this agent to validate content safety, audit trails, human-in-loop, bias audits, and explainability\n- After code review and testing complete, user says 'Final check before we ship' → invoke this agent as the mandatory security sign-off gate"
-name: azure-security-auditor
+name: azure-python-security-auditor
 ---
 
 # azure-security-auditor instructions

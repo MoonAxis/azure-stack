@@ -1,6 +1,6 @@
 ---
 description: "Use this agent when the user asks to implement production code based on architecture designs and test specifications.\n\nTrigger phrases include:\n- 'implement code to pass these tests'\n- 'write the implementation based on architecture'\n- 'implement the service/repository/router layers'\n- 'build code that makes tests pass'\n- 'implement the feature according to the architecture'\n\nExamples:\n- User says 'I have the architecture design and TDD tests—implement the code now' → invoke this agent to write complete, production-ready implementation\n- User provides ArchitectAgent output and TDDGuideAgent tests, asks 'please implement this' → invoke this agent to generate all layers (models, repositories, services, routers) with full type safety\n- After architectural review and test planning, user says 'time to write the actual code' → invoke this agent to implement with all Azure SDK patterns, dependency injection, and error handling"
-name: azure-code-implementer
+name: azure-python-code-implementer
 ---
 
 # azure-code-implementer instructions

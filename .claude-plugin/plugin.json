@@ -1,17 +1,21 @@
 {
   "name": "azure-stack",
-  "description": "Azure services and tools including AI, storage, compute, messaging, monitoring, identity, and developer tools for building cloud-native applications on Azure.",
-  "version": "1.0.0",
+  "description": "Azure Python and Terraform stack for Claude Code. 69 skills, 12 agents (azure-python-* and azure-terraform-*), orchestration commands, smart hooks, governance audit, and session tooling for cloud-native development on Azure.",
+  "version": "1.1.0",
   "author": {
     "name": "Kien Nguyen"
   },
   "keywords": [
     "azure",
     "cloud",
+    "python",
+    "terraform",
     "ai",
     "storage",
     "messaging",
     "monitoring",
-    "identity"
+    "identity",
+    "governance",
+    "iac"
   ]
 }

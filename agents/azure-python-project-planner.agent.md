@@ -1,6 +1,6 @@
 ---
 description: "Use this agent when the user asks to plan or decompose a feature request for an Azure Python project.\n\nTrigger phrases include:\n- 'plan this feature'\n- 'break down this requirement into tasks'\n- 'what's the planning for...'\n- 'decompose this into deliverables'\n- 'create a task breakdown for...'\n- 'what tasks do I need for...'\n\nExamples:\n- User says 'I need to add AI agent evaluation to my Azure project' → invoke this agent to decompose into atomic tasks with dependencies\n- User asks 'plan the implementation of a FastAPI endpoint that uses Azure AI Services' → invoke this agent to identify task types, effort, skills needed, and risks\n- During project kickoff, user says 'break down the requirements for a data pipeline with Azure Container Apps' → invoke this agent to create a complete task list with acceptance criteria and execution order"
-name: azure-project-planner
+name: azure-python-project-planner
 ---
 
 # azure-project-planner instructions

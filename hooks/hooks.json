@@ -4,7 +4,17 @@
       "event": "on_file_save",
       "match": "src/**/*.py",
       "agent": "azure-python-code-reviewer",
-      "description": "Run code review on any saved Python source file",
+      "description": "Run Python code review on any saved Python source file",
+      "options": {
+        "severity_threshold": "MAJOR",
+        "auto_fix": false
+      }
+    },
+    {
+      "event": "on_file_save",
+      "match": "**/*.tf",
+      "agent": "azure-terraform-risk-analyzer",
+      "description": "Run Terraform risk analysis on any saved .tf file",
       "options": {
         "severity_threshold": "MAJOR",
         "auto_fix": false
@@ -12,8 +22,9 @@
     },
     {
       "event": "on_pr_open",
+      "match": "**/*.py",
       "agent": "azure-python-code-reviewer",
-      "description": "Run full code review when a pull request is opened",
+      "description": "Run full Python code review when a PR touches Python files",
       "options": {
         "severity_threshold": "MINOR",
         "report_path": "docs/reports/pr-review.md"
@@ -21,17 +32,46 @@
     },
     {
       "event": "on_pr_open",
-      "agent": "azure-security-auditor",
-      "description": "Run security audit when a pull request is opened",
+      "match": "**/*.py",
+      "agent": "azure-python-security-auditor",
+      "description": "Run Python security audit when a PR touches Python files",
       "options": {
         "report_path": "docs/reports/pr-security.md"
       }
     },
     {
+      "event": "on_pr_open",
+      "match": "**/*.tf",
+      "agent": "azure-terraform-risk-analyzer",
+      "description": "Run Terraform risk analysis when a PR touches .tf files",
+      "options": {
+        "severity_threshold": "MINOR",
+        "report_path": "docs/reports/pr-terraform-review.md"
+      }
+    },
+    {
+      "event": "on_pr_open",
+      "match": "**/*.tf",
+      "agent": "azure-terraform-auditor",
+      "description": "Run Terraform security audit when a PR touches .tf files",
+      "options": {
+        "report_path": "docs/reports/pr-terraform-security.md"
+      }
+    },
+    {
       "event": "on_branch_create",
       "match": "feature/**",
-      "agent": "azure-project-planner",
-      "description": "Prompt planning when a feature branch is created",
+      "agent": "azure-python-project-planner",
+      "description": "Prompt Python planning when a feature branch is created",
+      "options": {
+        "output_dir": "docs/plans"
+      }
+    },
+    {
+      "event": "on_branch_create",
+      "match": "infra/**",
+      "agent": "azure-terraform-planner",
+      "description": "Prompt Terraform planning when an infra branch is created",
       "options": {
         "output_dir": "docs/plans"
       }
@@ -39,16 +79,25 @@
     {
       "event": "pre_commit",
       "match": "src/**/*.py",
-      "agent": "azure-security-auditor",
-      "description": "Block commit if security auditor finds REJECTED status",
+      "agent": "azure-python-security-auditor",
+      "description": "Block commit if Python security auditor finds REJECTED status",
+      "options": {
+        "block_on": "REJECTED"
+      }
+    },
+    {
+      "event": "pre_commit",
+      "match": "**/*.tf",
+      "agent": "azure-terraform-auditor",
+      "description": "Block commit if Terraform auditor finds REJECTED status",
       "options": {
         "block_on": "REJECTED"
       }
     },
     {
       "event": "on_test_fail",
-      "agent": "azure-code-implementer",
-      "description": "Invoke implementer when tests fail to attempt a fix",
+      "agent": "azure-python-code-implementer",
+      "description": "Invoke Python implementer when tests fail to attempt a fix",
       "options": {
         "max_retries": 2
       }

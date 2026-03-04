@@ -3,7 +3,6 @@ name: azure-ai-translation-text-py
 description: |
   Azure AI Text Translation SDK for real-time text translation, transliteration, language detection, and dictionary lookup. Use for translating text content in applications.
   Triggers: "text translation", "translator", "translate text", "transliterate", "TextTranslationClient".
-package: azure-ai-translation-text
 ---
 
 # Azure AI Text Translation SDK for Python
