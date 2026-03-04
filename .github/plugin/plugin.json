@@ -12,7 +12,13 @@
     "storage",
     "messaging",
     "monitoring",
-    "identity"
+    "identity",
+    "terraform",
+    "infrastructure",
+    "iac",
+    "security",
+    "compliance",
+    "governance"
   ],
   "settings": "./settings.json",
   "hooks": "./hooks/hooks.json",
@@ -21,9 +27,16 @@
   "rules": [
     "./rules/azure-coding-standards.md",
     "./rules/azure-security-rules.md",
-    "./rules/azure-agent-pipeline-rules.md"
+    "./rules/azure-agent-pipeline-rules.md",
+    "./rules/azure-python-coding-standards.md",
+    "./rules/azure-python-security-rules.md",
+    "./rules/azure-python-agent-pipeline-rules.md",
+    "./rules/azure-terraform-coding-standards.md",
+    "./rules/azure-terraform-security-rules.md",
+    "./rules/azure-terraform-pipeline-rules.md"
   ],
   "commands": [
-    "./commands/azure-orchestrate.md"
+    "./commands/python-orchestrate.md",
+    "./commands/terraform-orchestrate.md"
   ]
 }
