@@ -10,7 +10,7 @@ A Claude Code plugin for building cloud-native applications on Azure. Covers bot
 
 ```bash
 /plugin marketplace add MoonAxis/azure-stack
-/plugin install azure-stack
+/plugin install azure-stack@azure-stack
 ```
 
 ---
