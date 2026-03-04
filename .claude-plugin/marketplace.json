@@ -8,8 +8,8 @@
   "plugins": [
     {
       "name": "azure-stack",
-      "description": "Azure Python and Terraform stack for Claude Code. 69 skills, 12 agents (azure-python-* and azure-terraform-*), orchestration commands, smart hooks, governance audit, and session tooling for cloud-native development on Azure.",
-      "version": "1.1.0",
+      "description": "Azure Python and Terraform stack for Claude Code. 71 skills, 12 agents (azure-python-* and azure-terraform-*), orchestration commands, smart hooks, governance audit, and session tooling for cloud-native development on Azure.",
+      "version": "1.2.0",
       "author": {
         "name": "Kien Nguyen"
       },

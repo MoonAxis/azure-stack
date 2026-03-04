@@ -302,3 +302,48 @@ Always deliver architecture in this order:
 7. **Flags and Gaps**: Call out any ⚠️ REJECTED decisions or ⚠️ EU AI ACT GAP issues
 
 Use markdown formatting with clear section headers and code blocks. Make the output scannable and actionable for the implementation team.
+
+---
+
+## Continual Learning
+
+### Load Phase — before designing any architecture
+
+1. Read project conventions and past architectural decisions:
+   ```bash
+   cat .copilot-memory/conventions.md 2>/dev/null || true
+   ```
+   Treat any recorded service preferences, regional constraints, or team naming conventions as hard requirements.
+
+2. Load past architectural patterns and rejected decisions:
+   ```bash
+   sqlite3 .copilot-memory/learnings.db \
+     "SELECT content FROM learnings WHERE category IN ('pattern','preference','mistake') ORDER BY hit_count DESC LIMIT 15;" \
+     2>/dev/null || true
+   ```
+   Do not re-propose services or patterns that were previously rejected. Reuse ADR structures that worked.
+
+### Save Phase — after delivering the architecture document
+
+Record architectural decisions and preferences confirmed during this session:
+
+```bash
+sqlite3 .copilot-memory/learnings.db "
+  INSERT OR IGNORE INTO learnings (scope, category, content, source, created_at, hit_count)
+  VALUES ('local', 'preference',
+          '<service/pattern>: team prefers <choice> over <alternative> because <reason>',
+          'solution_architect', datetime('now'), 1);
+"
+```
+
+For stable project-wide architectural facts, append to conventions:
+```bash
+echo "- ARCH: <fact>" >> .copilot-memory/conventions.md
+```
+
+**What to save:**
+- Service choices the user confirmed (e.g., "use Cosmos DB not PostgreSQL for this project")
+- ADR patterns the team approved — reuse the same structure
+- Regional constraints confirmed (e.g., "EU data must stay in westeurope")
+- RBAC role assignments that were challenged and corrected
+- Any architectural decision that was reversed after review — record why

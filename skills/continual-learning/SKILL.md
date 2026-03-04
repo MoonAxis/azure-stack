@@ -17,12 +17,28 @@ Experience → Capture → Reflect → Persist → Apply
 
 ## Quick Start
 
-Install the hook (one step):
+Install the hook and initialize project memory (two commands):
 ```bash
 cp -r hooks/continual-learning .github/hooks/
+mkdir -p .copilot-memory && cp hooks/continual-learning/conventions.md.template .copilot-memory/conventions.md
 ```
 
-Auto-initializes on first session. No config needed.
+Initialize the SQLite DB:
+```bash
+sqlite3 .copilot-memory/learnings.db "
+  CREATE TABLE IF NOT EXISTS learnings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    scope TEXT NOT NULL,
+    category TEXT NOT NULL,
+    content TEXT NOT NULL UNIQUE,
+    source TEXT,
+    created_at TEXT DEFAULT (datetime('now')),
+    hit_count INTEGER DEFAULT 1
+  );
+"
+```
+
+All `azure-python-*` agents load `.copilot-memory/conventions.md` and the DB automatically at the start of every session.
 
 ## Two-Tier Memory
 

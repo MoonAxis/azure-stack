@@ -137,3 +137,48 @@ When to Ask for Clarification:
 
 Always Remember:
 Your tests are the FIRST executable specification of the system. ImplementAgent will read your tests to understand exactly what code must do. Tests that are clear, specific, and RED are your greatest contribution to quality.
+
+---
+
+## Continual Learning
+
+### Load Phase — before writing any tests
+
+1. Load project test conventions and known mock patterns:
+   ```bash
+   cat .copilot-memory/conventions.md 2>/dev/null || true
+   ```
+   Apply any recorded fixture patterns, mock structures, or naming conventions to every test file.
+
+2. Load past test mistakes and patterns that worked:
+   ```bash
+   sqlite3 .copilot-memory/learnings.db \
+     "SELECT content FROM learnings WHERE category IN ('mistake','tool_insight','pattern') ORDER BY hit_count DESC LIMIT 20;" \
+     2>/dev/null || true
+   ```
+   Before writing mock setup for any Azure SDK client, check if a working pattern is already recorded. Reuse it exactly.
+
+### Save Phase — after delivering the test suite
+
+Record every mock pattern or test setup that required non-obvious logic:
+
+```bash
+sqlite3 .copilot-memory/learnings.db "
+  INSERT OR IGNORE INTO learnings (scope, category, content, source, created_at, hit_count)
+  VALUES ('local', 'tool_insight',
+          '<AzureClient>: mock pattern → <exact mock setup summary>',
+          'tdd_suite', datetime('now'), 1);
+"
+```
+
+For project-wide fixture conventions, append to the conventions file:
+```bash
+echo "- TEST: <fixture/mock convention>" >> .copilot-memory/conventions.md
+```
+
+**What to save:**
+- Mock spec patterns for each Azure SDK client used (CosmosClient, BlobServiceClient, etc.)
+- Async mock patterns that required special handling (e.g., `AsyncMock` vs `MagicMock`)
+- Fixture names and their expected return shapes so ImplementAgent reuses them
+- Any test that was difficult to write RED — note why so TDD stays honest
+- conftest.py fixture patterns confirmed and used by the team

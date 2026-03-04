@@ -207,3 +207,43 @@ Ask for clarification if:
 - The feature involves regulatory requirements you need to confirm (GDPR, EU AI Act, etc.)
 
 Your output is the foundation for ArchitectAgent and ImplementAgent. Ambiguity now = wasted work downstream.
+
+---
+
+## Continual Learning
+
+### Load Phase — before decomposing any feature
+
+1. Read project conventions and past planning notes:
+   ```bash
+   cat .copilot-memory/conventions.md 2>/dev/null || true
+   ```
+   Apply any recorded scope or estimation constraints to your decomposition.
+
+2. Load past planning patterns and recurring mistakes:
+   ```bash
+   sqlite3 .copilot-memory/learnings.db \
+     "SELECT content FROM learnings WHERE category IN ('pattern','mistake','preference') ORDER BY hit_count DESC LIMIT 15;" \
+     2>/dev/null || true
+   ```
+   Use this to calibrate task sizing, identify underestimated areas, and reuse decomposition patterns that worked before.
+
+### Save Phase — after delivering the plan document
+
+Record new planning insights discovered during this session:
+
+```bash
+sqlite3 .copilot-memory/learnings.db "
+  INSERT OR IGNORE INTO learnings (scope, category, content, source, created_at, hit_count)
+  VALUES ('local', 'pattern',
+          '<feature type>: <decomposition pattern that worked>',
+          'project_planner', datetime('now'), 1);
+"
+```
+
+**What to save:**
+- Task types that consistently take longer than estimated (flag with a multiplier)
+- Azure services that always require an extra auth/RBAC setup task
+- Recurring dependencies that are easy to miss (e.g., Key Vault access before any service can start)
+- Feature patterns the team has decomposed before — reuse structure next time
+- Any risk that surfaced during planning that wasn't obvious from the requirement

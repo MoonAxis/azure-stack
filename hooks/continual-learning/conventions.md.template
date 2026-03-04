@@ -1,0 +1,25 @@
+# Azure Python Project Conventions
+# Copy this file to .copilot-memory/conventions.md in your project.
+# All azure-python-* agents load this file automatically at the start of each session.
+# Add project-specific rules here — they are treated as hard constraints by every agent.
+
+## Authentication (loaded by all agents)
+- Always use DefaultAzureCredential — connection string auth is REJECTED
+- Never construct credential objects other than DefaultAzureCredential without justification
+
+## Secrets
+- All secrets must reside in Azure Key Vault — never in env vars or config files
+- Key Vault URL environment variable: AZURE_KEYVAULT_URL
+
+## Known SDK Bugs & Fixes
+# Format: - SDK: <wrong usage> → fix: <correct usage>
+# Example:
+# - azure-search: use semantic_configuration_name= not semantic_configuration=
+
+## Project-Specific Patterns
+# Format: - ARCH/TEST/SECURITY: <fact>
+# Example:
+# - ARCH: use Cosmos DB (not PostgreSQL) as the primary data store
+# - ARCH: EU data must stay in westeurope region
+# - TEST: use AsyncMock(spec=ContainerProxy) for all Cosmos container mocks
+# - SECURITY: PII fields in this project: user_email, user_phone, ip_address

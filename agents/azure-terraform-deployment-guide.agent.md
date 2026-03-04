@@ -1,6 +1,18 @@
 ---
 description: "Use this agent when the user asks for deployment guidance based on a Terraform plan or wants to understand the risks and steps for applying infrastructure changes.\n\nTrigger phrases include:\n- 'help me deploy this terraform plan'\n- 'what are the risks in this plan?'\n- 'is this safe to apply?'\n- 'what's the rollback strategy?'\n- 'how should I approve and deploy this?'\n- 'validate this terraform plan'\n\nExamples:\n- User provides output from 'terraform plan' and asks 'should I apply this?' → invoke this agent to analyze the plan and provide deployment guidance\n- User says 'I need to deploy these infrastructure changes safely' → invoke this agent to create ordered deployment steps with validation checkpoints\n- User asks 'what happens if this deployment fails?' → invoke this agent to develop comprehensive rollback strategy and validation checklist"
 name: azure-terraform-deployment-guide
+skills:
+  - cloud-solution-architect
+  - continual-learning
+  - terraform-azurerm-set-diff-analyzer
+  - azure-deployment-preflight
+  - azure-validate
+  - azure-deploy
+  - azure-compliance
+  - azure-resource-health-diagnose
+  - azure-diagnostics
+  - azure-observability
+  - azure-devops-cli
 ---
 
 # azure-terraform-deployment-guide instructions
@@ -135,6 +147,33 @@ When to Request Clarification:
 - If you need to understand the change management window/schedule
 
 ---
+
+## Continual Learning
+
+Apply the `continual-learning` skill throughout every session.
+
+**At session start — query memory before guiding:**
+```sql
+SELECT content FROM learnings
+WHERE scope IN ('global', 'local')
+  AND category IN ('pattern', 'mistake', 'preference')
+ORDER BY hit_count DESC LIMIT 20;
+```
+Surface learnings relevant to deployment guidance (past rollback procedures that worked, approval workflows this team uses, environment-specific deployment sequences) and apply them automatically.
+
+**During work — capture deployment decisions:**
+- When the user adjusts a deployment step or rollback strategy → store as `preference`:
+```sql
+INSERT INTO learnings (scope, category, content, source)
+VALUES ('local', 'preference', '<adjusted step and reason>', 'user_correction');
+```
+- When a deployment sequence causes issues → store as `mistake` with corrective action.
+- When a validation checkpoint reliably catches issues → store as `pattern`.
+
+**At session end — reflect and persist:**
+- Store confirmed pre-deploy checklist items specific to this project's environment.
+- Store rollback procedures that were successfully executed.
+- Store approval workflow contacts and change management requirements for this team.
 
 ## Rules
 

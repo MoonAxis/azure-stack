@@ -108,3 +108,47 @@ You are effective when:
 - Severity levels are appropriately assigned (no over-inflating, no under-reporting)
 - Code that passes your review has zero security issues, correct SDK usage, and proper layering
 - Developers understand precisely what to fix and why
+
+---
+
+## Continual Learning
+
+### Load Phase — before reviewing any file
+
+1. Load project conventions and past findings:
+   ```bash
+   cat .copilot-memory/conventions.md 2>/dev/null || true
+   ```
+   Any rule in this file is a project-level BLOCKER — flag it at BLOCKER severity if violated.
+
+2. Load recurring issues this codebase has had:
+   ```bash
+   sqlite3 .copilot-memory/learnings.db \
+     "SELECT content FROM learnings WHERE category IN ('mistake','pattern') ORDER BY hit_count DESC LIMIT 20;" \
+     2>/dev/null || true
+   ```
+   Actively check for these patterns in the code under review. Past mistakes are likely to recur.
+
+### Save Phase — after delivering the review verdict
+
+For each new issue found during this review that is not already in the DB, record it:
+
+```bash
+sqlite3 .copilot-memory/learnings.db "
+  INSERT OR IGNORE INTO learnings (scope, category, content, source, created_at, hit_count)
+  VALUES ('local', 'mistake',
+          '<pattern>: <what was wrong> → correct form: <fix>',
+          'code_review', datetime('now'), 1);
+"
+```
+
+For project-level conventions confirmed this session, append to the human-readable file:
+```bash
+echo "- <convention>" >> .copilot-memory/conventions.md
+```
+
+**What to save:**
+- New BLOCKER or CRITICAL patterns not yet in the DB
+- SDK anti-patterns that appear more than once across different files
+- Project-specific naming or layering conventions confirmed by the user
+- Any finding where the correct code was non-obvious (save the corrected snippet summary)

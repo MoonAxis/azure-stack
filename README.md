@@ -1,6 +1,6 @@
 # azure-stack
 
-A Claude Code plugin for building cloud-native applications on Azure. Covers both **Python** and **Terraform** workflows with 69 skills, 12 specialized agents, 2 orchestration commands, smart file-type routing hooks, governance audit, and session tooling.
+A Claude Code plugin for building cloud-native applications on Azure. Covers both **Python** and **Terraform** workflows with 71 skills, 12 specialized agents, 2 orchestration commands, smart file-type routing hooks, governance audit, and session tooling.
 
 **Author:** Kien Nguyen | **Owner:** MoonAxis | **Version:** 1.1.0
 
@@ -190,10 +190,12 @@ Two commands — one per stack:
 | `fastapi-router-py` | FastAPI router patterns |
 | `frontend-design-review` | Frontend design review for Azure apps |
 
-#### Documentation
+#### Architecture & Learning
 
 | Skill | Description |
 | --- | --- |
+| `cloud-solution-architect` | Transform Claude into a Cloud Solution Architect following Azure Architecture Center best practices |
+| `continual-learning` | Learning infrastructure for agents — hooks, memory scoping, reflection patterns. All `azure-python-*` and `azure-terraform-*` agents load `.copilot-memory/` automatically. |
 | `microsoft-docs` | Query Microsoft Learn, Azure, .NET, Aspire, VS Code, and GitHub docs |
 
 ---
@@ -262,6 +264,7 @@ Five Azure MCP servers configured automatically on install:
 | `session-logger` | start, end, prompt | JSON audit log of all session activity |
 | `governance-audit` | start, end, prompt | Real-time threat detection on every prompt |
 | `session-auto-commit` | end | Auto-commit and push all changes at session end |
+| `continual-learning` | start, end | Persist known bugs and fixes across sessions; loaded by all `azure-python-*` agents |
 
 **To use a session hook in your project:**
 
@@ -269,6 +272,29 @@ Five Azure MCP servers configured automatically on install:
 cp -r hooks/<hook-name> .github/hooks/
 chmod +x .github/hooks/<hook-name>/*.sh
 ```
+
+**To enable continual learning for `azure-python-*` agents (one-time setup):**
+
+```bash
+cp -r hooks/continual-learning .github/hooks/
+mkdir -p .copilot-memory
+cp hooks/continual-learning/conventions.md.template .copilot-memory/conventions.md
+sqlite3 .copilot-memory/learnings.db "
+  CREATE TABLE IF NOT EXISTS learnings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    scope TEXT NOT NULL,
+    category TEXT NOT NULL,
+    content TEXT NOT NULL UNIQUE,
+    source TEXT,
+    created_at TEXT DEFAULT (datetime('now')),
+    hit_count INTEGER DEFAULT 1
+  );
+"
+```
+
+After setup, every `azure-python-*` and `azure-terraform-*` agent will:
+1. **Load** known bugs, SDK fixes, and project conventions before starting work
+2. **Save** new discoveries after each session — improving automatically over time
 
 **governance-audit config:**
 
