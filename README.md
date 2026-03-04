@@ -9,7 +9,7 @@ A Claude Code plugin for building cloud-native applications on Azure. Provides 5
 ## Install
 
 ```bash
-/plugin marketplace add https://github.com/MoonAxis/azure-stack.git
+/plugin marketplace add MoonAxis/azure-stack
 /plugin install azure-stack
 ```
 
